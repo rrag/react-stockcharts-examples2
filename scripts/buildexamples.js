@@ -133,6 +133,18 @@ export function getData() {
 }
 `
 
+const horizontalBarData = `
+${parseData}
+
+export function getData() {
+	const promiseBarData = fetch("//rrag.github.io/react-stockcharts/data/barData.json")
+		.then(response => response.json())
+		.then(barData => barData.map(({ x, y }) => ({ x: y, y: x })));
+
+	return promiseBarData;
+}
+`
+
 const groupedBarData = `
 ${parseData}
 
@@ -142,12 +154,32 @@ export function getData() {
 	return promiseBarData;
 }
 `
+const horizontalGroupedBarData = `
+${parseData}
+
+export function getData() {
+	const promiseBarData = fetch("//rrag.github.io/react-stockcharts/data/groupedBarData.json")
+		.then(response => response.json())
+		.then(groupedBarData => {
+			return groupedBarData.map(d => {
+				return {
+					y: d.x,
+					x1: d.y1,
+					x2: d.y2,
+					x3: d.y3,
+					x4: d.y4,
+				};
+			});
+		});
+	return promiseBarData;
+}
+`
 
 const examplesToPublish = [
 	{ name: "AreaChart", files: [], utils: endOfDayMSFT },
 	{ name: "AreaChartWithYPercent", files: [], utils: endOfDayMSFT },
 	{ name: "AreaChartWithZoomPan", files: [], utils: endOfDayMSFT },
-	{ name: "BarChart", files: [], utils: endOfDayMSFT },
+	{ name: "BarChart", files: [], utils: barData },
 	{ name: "BubbleChart", files: [], utils: bubbleData },
 	{ name: "CandleStickChartForContinuousIntraDay", files: [], utils: continuous },
 	{ name: "CandleStickChartForDiscontinuousIntraDay", files: [], utils: discontinuous },
@@ -182,8 +214,8 @@ const examplesToPublish = [
 	{ name: "CandleStickStockScaleChartWithVolumeBarV3", files: [], utils: endOfDayMSFT },
 	{ name: "GroupedBarChart", files: [], utils: groupedBarData },
 	{ name: "HeikinAshi", files: [], utils: endOfDayMSFT },
-	{ name: "HorizontalBarChart", files: [], utils: barData },
-	{ name: "HorizontalStackedBarChart", files: [], utils: groupedBarData },
+	{ name: "HorizontalBarChart", files: [], utils: horizontalBarData },
+	{ name: "HorizontalStackedBarChart", files: [], utils: horizontalGroupedBarData },
 	{ name: "Kagi", files: [], utils: endOfDayMSFT },
 	{ name: "KagiWithUpdatingData", files: [ "Kagi", "updatingDataWrapper" ], utils: endOfDayMSFT },
 	{ name: "LineAndScatterChartGrid", files: [], utils: endOfDayMSFT },

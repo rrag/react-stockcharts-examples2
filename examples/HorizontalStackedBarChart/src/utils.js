@@ -19,6 +19,17 @@ function parseData(parse) {
 
 export function getData() {
 	const promiseBarData = fetch("//rrag.github.io/react-stockcharts/data/groupedBarData.json")
-		.then(response => response.json());
+		.then(response => response.json())
+		.then(groupedBarData => {
+			return groupedBarData.map(d => {
+				return {
+					y: d.x,
+					x1: d.y1,
+					x2: d.y2,
+					x3: d.y3,
+					x4: d.y4,
+				};
+			});
+		});
 	return promiseBarData;
 }

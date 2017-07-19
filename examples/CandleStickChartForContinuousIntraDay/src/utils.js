@@ -1,8 +1,7 @@
 
+
 import { tsvParse } from  "d3-dsv";
 import { timeParse } from "d3-time-format";
-
-const parseDate = timeParse("%Y-%m-%d");
 
 function parseData(parse) {
 	return function(d) {
@@ -17,9 +16,17 @@ function parseData(parse) {
 	};
 }
 
+const parseDateTime = timeParse("%Y-%m-%d %H:%M:%S");
+
 export function getData() {
-	const promiseMSFT = fetch("//rrag.github.io/react-stockcharts/data/MSFT.tsv")
+	const promiseIntraDayContinuous = fetch("//rrag.github.io/react-stockcharts/data/bitfinex_xbtusd_1m.csv")
 		.then(response => response.text())
-		.then(data => tsvParse(data, parseData(parseDate)))
-	return promiseMSFT;
+		.then(data => csvParse(data, parseData(parseDateTime)))
+		.then(data => {
+			data.sort((a, b) => {
+				return a.date.valueOf() - b.date.valueOf();
+			});
+			return data;
+		});
+	return promiseIntraDayContinuous;
 }

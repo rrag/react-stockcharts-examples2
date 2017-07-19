@@ -40,12 +40,9 @@ render(
 	document.getElementById("root")
 );
 `
-
-const utils = `
+const parseData = `
 import { tsvParse } from  "d3-dsv";
 import { timeParse } from "d3-time-format";
-
-const parseDate = timeParse("%Y-%m-%d");
 
 function parseData(parse) {
 	return function(d) {
@@ -59,6 +56,10 @@ function parseData(parse) {
 		return d;
 	};
 }
+`
+const endOfDayMSFT = `
+${parseData}
+const parseDate = timeParse("%Y-%m-%d");
 
 export function getData() {
 	const promiseMSFT = fetch("//rrag.github.io/react-stockcharts/data/MSFT.tsv")
@@ -67,63 +68,137 @@ export function getData() {
 	return promiseMSFT;
 }
 `
+const continuous = `
+${parseData}
+const parseDateTime = timeParse("%Y-%m-%d %H:%M:%S");
+
+export function getData() {
+	const promiseIntraDayContinuous = fetch("//rrag.github.io/react-stockcharts/data/bitfinex_xbtusd_1m.csv")
+		.then(response => response.text())
+		.then(data => csvParse(data, parseData(parseDateTime)))
+		.then(data => {
+			data.sort((a, b) => {
+				return a.date.valueOf() - b.date.valueOf();
+			});
+			return data;
+		});
+	return promiseIntraDayContinuous;
+}
+`
+
+const discontinuous = `
+${parseData}
+
+export function getData() {
+	const promiseIntraDayDiscontinuous = fetch("//rrag.github.io/react-stockcharts/data/MSFT_INTRA_DAY.tsv")
+		.then(response => response.text())
+		.then(data => tsvParse(data, parseData(d => new Date(+d))));
+	return promiseIntraDayDiscontinuous;
+}
+`
+const comparison = `
+${parseData}
+const parseDate = timeParse("%Y-%m-%d");
+
+export function getData() {
+	const promiseCompare = fetch("//rrag.github.io/react-stockcharts/data/comparison.tsv")
+		.then(response => response.text())
+		.then(data => tsvParse(data, d => {
+			d = parseData(parseDate)(d);
+			d.SP500Close = +d.SP500Close;
+			d.AAPLClose = +d.AAPLClose;
+			d.GEClose = +d.GEClose;
+			return d;
+		}));
+	return promiseCompare;
+}
+`
+const bubbleData = `
+${parseData}
+
+export function getData() {
+	const promiseBubbleData = fetch("//rrag.github.io/react-stockcharts/data/bubble.json")
+		.then(response => response.json());
+	return promiseBubbleData;
+}
+`
+
+const barData = `
+${parseData}
+
+export function getData() {
+	const promiseBarData = fetch("//rrag.github.io/react-stockcharts/data/barData.json")
+		.then(response => response.json());
+	return promiseBarData;
+}
+`
+
+const groupedBarData = `
+${parseData}
+
+export function getData() {
+	const promiseBarData = fetch("//rrag.github.io/react-stockcharts/data/groupedBarData.json")
+		.then(response => response.json());
+	return promiseBarData;
+}
+`
 
 const examplesToPublish = [
-	{ name: "AreaChart", files: [] },
-	{ name: "AreaChartWithYPercent", files: [] },
-	{ name: "AreaChartWithZoomPan", files: [] },
-	{ name: "BarChart", files: [] },
-	{ name: "BubbleChart", files: [] },
-	{ name: "CandleStickChartForContinuousIntraDay", files: [] },
-	{ name: "CandleStickChartForDiscontinuousIntraDay", files: [] },
-	{ name: "CandleStickChart", files: [] },
-	{ name: "CandleStickChartPanToLoadMore", files: [] },
-	{ name: "CandleStickChartWithAnnotation", files: [] },
-	{ name: "CandleStickChartWithBollingerBandOverlay", files: [] },
-	{ name: "CandleStickChartWithBrush", files: [] },
-	{ name: "CandleStickChartWithCHMousePointer", files: [] },
-	{ name: "CandleStickChartWithClickHandlerCallback", files: [] },
-	{ name: "CandleStickChartWithCompare", files: [] },
-	{ name: "CandleStickChartWithDarkTheme", files: [] },
-	{ name: "CandleStickChartWithEdge", files: [] },
-	{ name: "CandleStickChartWithEquidistantChannel", files: [] },
-	{ name: "CandleStickChartWithFibonacciInteractiveIndicator", files: [] },
-	{ name: "CandleStickChartWithForceIndexIndicator", files: [] },
-	{ name: "CandleStickChartWithFullStochasticsIndicator", files: [] },
-	{ name: "CandleStickChartWithGannFan", files: [] },
-	{ name: "CandleStickChartWithHoverTooltip", files: [] },
-	{ name: "CandleStickChartWithInteractiveIndicator", files: [] },
-	{ name: "CandleStickChartWithMACDIndicator", files: [] },
-	{ name: "CandleStickChartWithMA", files: [] },
-	{ name: "CandleStickChartWithPriceMarkers", files: [] },
-	{ name: "CandleStickChartWithRSIIndicator", files: [] },
-	{ name: "CandleStickChartWithSAR", files: [] },
-	{ name: "CandleStickChartWithStandardDeviationChannel", files: [] },
-	{ name: "CandleStickChartWithUpdatingData", files: [ "CandleStickChartWithMACDIndicator", "updatingDataWrapper" ] },
-	{ name: "CandleStickChartWithZoomPan", files: [] },
-	{ name: "CandleStickStockScaleChart", files: [] },
-	{ name: "CandleStickStockScaleChartWithVolumeBarV1", files: [] },
-	{ name: "CandleStickStockScaleChartWithVolumeBarV2", files: [] },
-	{ name: "CandleStickStockScaleChartWithVolumeBarV3", files: [] },
-	{ name: "GroupedBarChart", files: [] },
-	{ name: "HeikinAshi", files: [] },
-	{ name: "HorizontalBarChart", files: [] },
-	{ name: "HorizontalStackedBarChart", files: [] },
-	{ name: "Kagi", files: [] },
-	{ name: "KagiWithUpdatingData", files: [ "Kagi", "updatingDataWrapper" ] },
-	{ name: "LineAndScatterChartGrid", files: [] },
-	{ name: "LineAndScatterChart", files: [] },
-	{ name: "MovingAverageCrossOverAlgorithmV1", files: [] },
-	{ name: "MovingAverageCrossOverAlgorithmV2", files: [] },
-	{ name: "OHLCChartWithElderImpulseIndicator", files: [] },
-	{ name: "OHLCChartWithElderRayIndicator", files: [] },
-	{ name: "PointAndFigure", files: [] },
-	{ name: "PointAndFigureWithUpdatingData", files: [ "PointAndFigure", "updatingDataWrapper" ] },
-	{ name: "Renko", files: [] },
-	{ name: "RenkoWithUpdatingData", files: [ "Renko", "updatingDataWrapper" ] },
-	{ name: "StackedBarChart", files: [] },
-	{ name: "VolumeProfileBySessionChart", files: [] },
-	{ name: "VolumeProfileChart", files: [] },
+	{ name: "AreaChart", files: [], utils: endOfDayMSFT },
+	{ name: "AreaChartWithYPercent", files: [], utils: endOfDayMSFT },
+	{ name: "AreaChartWithZoomPan", files: [], utils: endOfDayMSFT },
+	{ name: "BarChart", files: [], utils: endOfDayMSFT },
+	{ name: "BubbleChart", files: [], utils: bubbleData },
+	{ name: "CandleStickChartForContinuousIntraDay", files: [], utils: continuous },
+	{ name: "CandleStickChartForDiscontinuousIntraDay", files: [], utils: discontinuous },
+	{ name: "CandleStickChart", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartPanToLoadMore", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithAnnotation", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithBollingerBandOverlay", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithBrush", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithCHMousePointer", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithClickHandlerCallback", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithCompare", files: [], utils: comparison },
+	{ name: "CandleStickChartWithDarkTheme", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithEdge", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithEquidistantChannel", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithFibonacciInteractiveIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithForceIndexIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithFullStochasticsIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithGannFan", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithHoverTooltip", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithInteractiveIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithMACDIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithMA", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithPriceMarkers", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithRSIIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithSAR", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithStandardDeviationChannel", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithUpdatingData", files: [ "CandleStickChartWithMACDIndicator", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithZoomPan", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickStockScaleChart", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickStockScaleChartWithVolumeBarV1", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickStockScaleChartWithVolumeBarV2", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickStockScaleChartWithVolumeBarV3", files: [], utils: endOfDayMSFT },
+	{ name: "GroupedBarChart", files: [], utils: groupedBarData },
+	{ name: "HeikinAshi", files: [], utils: endOfDayMSFT },
+	{ name: "HorizontalBarChart", files: [], utils: barData },
+	{ name: "HorizontalStackedBarChart", files: [], utils: groupedBarData },
+	{ name: "Kagi", files: [], utils: endOfDayMSFT },
+	{ name: "KagiWithUpdatingData", files: [ "Kagi", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "LineAndScatterChartGrid", files: [], utils: endOfDayMSFT },
+	{ name: "LineAndScatterChart", files: [], utils: endOfDayMSFT },
+	{ name: "MovingAverageCrossOverAlgorithmV1", files: [], utils: endOfDayMSFT },
+	{ name: "MovingAverageCrossOverAlgorithmV2", files: [], utils: endOfDayMSFT },
+	{ name: "OHLCChartWithElderImpulseIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "OHLCChartWithElderRayIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "PointAndFigure", files: [], utils: endOfDayMSFT },
+	{ name: "PointAndFigureWithUpdatingData", files: [ "PointAndFigure", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "Renko", files: [], utils: endOfDayMSFT },
+	{ name: "RenkoWithUpdatingData", files: [ "Renko", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "StackedBarChart", files: [], utils: endOfDayMSFT },
+	{ name: "VolumeProfileBySessionChart", files: [], utils: endOfDayMSFT },
+	{ name: "VolumeProfileChart", files: [], utils: endOfDayMSFT },
 ];
 
 const srcDir = path.join(base, "..", "react-stockcharts", "docs", "lib", "charts")
@@ -169,7 +244,7 @@ async function publish(example) {
 
 	await fse.outputFile(
 		path.join(destDir, "src", "utils.js"),
-		utils
+		example.utils,
 	)
 
 	example.files.forEach(each => {

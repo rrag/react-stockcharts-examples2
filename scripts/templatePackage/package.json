@@ -9,7 +9,7 @@
     "prop-types": "15.5.10",
     "react": "15.5.3",
     "react-dom": "15.5.3",
-    "react-stockcharts": "0.7.0-beta.7"
+    "react-stockcharts": "0.7.0-beta.8"
   },
   "devDependencies": {
     "react-scripts": "1.0.0"

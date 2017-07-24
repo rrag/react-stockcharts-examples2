@@ -265,7 +265,7 @@ async function publish(example) {
 	)
 
 	const destExample = path.join(destDir, "src", "Chart.js")
-	const srcExample = path.join(srcDir, `${example.name}.jsx`)
+	const srcExample = path.join(srcDir, `${example.name}.js`)
 
 	await fse.copy(srcExample, destExample)
 
@@ -281,7 +281,7 @@ async function publish(example) {
 
 	example.files.forEach(each => {
 		fse.copy(
-			path.join(srcDir, `${each}.jsx`),
+			path.join(srcDir, `${each}.js`),
 			path.join(destDir, "src", `${each}.js`),
 		)
 	})

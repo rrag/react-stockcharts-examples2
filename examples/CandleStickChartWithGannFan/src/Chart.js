@@ -116,7 +116,6 @@ class CandleStickChartWithGannFan extends React.Component {
 				xAccessor={xAccessor}
 				displayXAccessor={displayXAccessor}
 				xExtents={xExtents}
-				drawMode={this.state.enableInteractiveObject}
 			>
 				<Chart id={1}
 					yExtents={[d => [d.high, d.low]]}

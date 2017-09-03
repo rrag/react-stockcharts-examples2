@@ -29,9 +29,13 @@ import {
 	MACDTooltip,
 } from "react-stockcharts/lib/tooltip";
 import { ema, macd, sma } from "react-stockcharts/lib/indicator";
-import { FibonacciRetracement } from "react-stockcharts/lib/interactive";
+import { FibonacciRetracement, DrawingObjectSelector } from "react-stockcharts/lib/interactive";
 import { fitWidth } from "react-stockcharts/lib/helper";
-import { last } from "react-stockcharts/lib/utils";
+import { last, toObject } from "react-stockcharts/lib/utils";
+import {
+	saveInteractiveNodes,
+	getInteractiveNodes,
+} from "./interactiveutils";
 
 const macdAppearance = {
 	stroke: {
@@ -47,16 +51,19 @@ class CandleStickChartWithFibonacciInteractiveIndicator extends React.Component 
 	constructor(props) {
 		super(props);
 		this.onKeyPress = this.onKeyPress.bind(this);
-		this.onFibComplete = this.onFibComplete.bind(this);
-		this.saveInteractiveNode = this.saveInteractiveNode.bind(this);
+		this.onFibComplete1 = this.onFibComplete1.bind(this);
+		this.onFibComplete3 = this.onFibComplete3.bind(this);
+		this.handleSelection = this.handleSelection.bind(this);
+
+		this.saveInteractiveNodes = saveInteractiveNodes.bind(this);
+		this.getInteractiveNodes = getInteractiveNodes.bind(this);
+
 		this.saveCanvasNode = this.saveCanvasNode.bind(this);
 		this.state = {
 			enableFib: true,
-			retracements: [],
+			retracements_1: [],
+			retracements_3: [],
 		};
-	}
-	saveInteractiveNode(node) {
-		this.node = node;
 	}
 	saveCanvasNode(node) {
 		this.canvasNode = node;
@@ -67,9 +74,24 @@ class CandleStickChartWithFibonacciInteractiveIndicator extends React.Component 
 	componentWillUnmount() {
 		document.removeEventListener("keyup", this.onKeyPress);
 	}
-	onFibComplete(retracements) {
+	handleSelection(interactives) {
+		const state = toObject(interactives, each => {
+			return [
+				`retracements_${each.chartId}`,
+				each.objects,
+			];
+		});
+		this.setState(state);
+	}
+	onFibComplete1(retracements_1) {
 		this.setState({
-			retracements,
+			retracements_1,
+			enableFib: false
+		});
+	}
+	onFibComplete3(retracements_3) {
+		this.setState({
+			retracements_3,
 			enableFib: false
 		});
 	}
@@ -77,17 +99,22 @@ class CandleStickChartWithFibonacciInteractiveIndicator extends React.Component 
 		const keyCode = e.which;
 		switch (keyCode) {
 		case 46: { // DEL
-			const rest = this.state.retracements
-				.slice(0, this.state.retracements.length - 1);
+			const retracements_1 = this.state.retracements_1
+				.filter(each => !each.selected);
+			const retracements_3 = this.state.retracements_3
+				.filter(each => !each.selected);
+
 			this.canvasNode.cancelDrag();
 			this.setState({
-				retracements: rest,
+				retracements_1,
+				retracements_3,
 			});
 			break;
 		}
 		case 27: { // ESC
 			this.canvasNode.cancelDrag();
-			this.node.terminate();
+			this.node_1.terminate();
+			this.node_3.terminate();
 			this.setState({
 				enableFib: false
 			});
@@ -183,7 +210,9 @@ class CandleStickChartWithFibonacciInteractiveIndicator extends React.Component 
 					<CurrentCoordinate yAccessor={ema12.accessor()} fill={ema12.stroke()} />
 
 					<EdgeIndicator itemType="last" orient="right" edgeAt="right"
-						yAccessor={d => d.close} fill={d => d.close > d.open ? "#6BA583" : "#FF0000"}/>
+						yAccessor={d => d.close}
+						fill={d => d.close > d.open ? "#6BA583" : "#FF0000"}
+					/>
 
 					<OHLCTooltip origin={[-40, 0]}/>
 					<MovingAverageTooltip
@@ -206,11 +235,11 @@ class CandleStickChartWithFibonacciInteractiveIndicator extends React.Component 
 					/>
 
 					<FibonacciRetracement
-						ref={this.saveInteractiveNode}
+						ref={this.saveInteractiveNodes("FibonacciRetracement", 1)}
 						enabled={this.state.enableFib}
-						type="BOUND"
-						retracements={this.state.retracements}
-						onComplete={this.onFibComplete}/>
+						retracements={this.state.retracements_1}
+						onComplete={this.onFibComplete1}
+					/>
 				</Chart>
 				<Chart id={2} height={150}
 					yExtents={[d => d.volume, smaVolume50.accessor()]}
@@ -243,6 +272,15 @@ class CandleStickChartWithFibonacciInteractiveIndicator extends React.Component 
 
 					<MACDSeries yAccessor={d => d.macd}
 						{...macdAppearance} />
+
+					<FibonacciRetracement
+						ref={this.saveInteractiveNodes("FibonacciRetracement", 3)}
+						enabled={this.state.enableFib}
+						type="BOUND"
+						retracements={this.state.retracements_3}
+						onComplete={this.onFibComplete3}
+					/>
+
 					<MACDTooltip
 						origin={[-38, 15]}
 						yAccessor={d => d.macd}
@@ -251,6 +289,14 @@ class CandleStickChartWithFibonacciInteractiveIndicator extends React.Component 
 					/>
 				</Chart>
 				<CrossHairCursor />
+				<DrawingObjectSelector
+					enabled={!this.state.enableFib}
+					getInteractiveNodes={this.getInteractiveNodes}
+					drawingObjectMap={{
+						FibonacciRetracement: "retracements"
+					}}
+					onSelect={this.handleSelection}
+				/>
 			</ChartCanvas>
 		);
 	}

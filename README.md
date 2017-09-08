@@ -27,6 +27,7 @@
 - [CandleStickChartWithPriceMarkers](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithPriceMarkers)
 - [CandleStickChartWithRSIIndicator](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithRSIIndicator)
 - [CandleStickChartWithSAR](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithSAR)
+- [CandleStickChartWithText](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithText)
 - [CandleStickChartWithStandardDeviationChannel](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithStandardDeviationChannel)
 - [CandleStickChartWithUpdatingData](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithUpdatingData) - BROKEN IN CODESANDBOX, works using npm, - FIXME
 - [CandleStickChartWithZoomPan](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithZoomPan)

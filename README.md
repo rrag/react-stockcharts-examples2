@@ -29,7 +29,7 @@
 - [CandleStickChartWithSAR](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithSAR)
 - [CandleStickChartWithText](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithText)
 - [CandleStickChartWithStandardDeviationChannel](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithStandardDeviationChannel)
-- [CandleStickChartWithUpdatingData](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithUpdatingData) - BROKEN IN CODESANDBOX, works using npm, - FIXME
+- [CandleStickChartWithUpdatingData](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithUpdatingData)
 - [CandleStickChartWithZoomPan](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickChartWithZoomPan)
 - [CandleStickStockScaleChart](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickStockScaleChart)
 - [CandleStickStockScaleChartWithVolumeBarV1](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/CandleStickStockScaleChartWithVolumeBarV1)
@@ -48,7 +48,7 @@
 - [OHLCChartWithElderImpulseIndicator](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/OHLCChartWithElderImpulseIndicator)
 - [OHLCChartWithElderRayIndicator](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/OHLCChartWithElderRayIndicator)
 - [PointAndFigure](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/PointAndFigure)
-- [PointAndFigureWithUpdatingData](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/PointAndFigureWithUpdatingData) - BROKEN - FIXME
+- [PointAndFigureWithUpdatingData](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/PointAndFigureWithUpdatingData)
 - [Renko](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/Renko)
 - [RenkoWithUpdatingData](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/RenkoWithUpdatingData)
 - [StackedBarChart](https://codesandbox.io/s/github/rrag/react-stockcharts-examples2/tree/master/examples/StackedBarChart)

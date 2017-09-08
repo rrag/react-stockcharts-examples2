@@ -187,26 +187,27 @@ const examplesToPublish = [
 	{ name: "CandleStickChartPanToLoadMore", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithAnnotation", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithBollingerBandOverlay", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithBrush", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithBrush", files: ["interactiveutils"], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithCHMousePointer", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithClickHandlerCallback", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithCompare", files: [], utils: comparison },
 	{ name: "CandleStickChartWithDarkTheme", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithEdge", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithEquidistantChannel", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithFibonacciInteractiveIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithEquidistantChannel", files: ["interactiveutils"], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithFibonacciInteractiveIndicator", files: ["interactiveutils"], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithForceIndexIndicator", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithFullStochasticsIndicator", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithGannFan", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithGannFan", files: ["interactiveutils"], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithHoverTooltip", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithInteractiveIndicator", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithInteractiveIndicator", files: ["interactiveutils"], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithMACDIndicator", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithMA", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithPriceMarkers", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithRSIIndicator", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithSAR", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithStandardDeviationChannel", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithUpdatingData", files: [ "CandleStickChartWithMACDIndicator", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithStandardDeviationChannel", files: ["interactiveutils"], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithText", files: ["interactiveutils"], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithUpdatingData", files: ["CandleStickChartWithMACDIndicator", "updatingDataWrapper"], utils: endOfDayMSFT },
 	{ name: "CandleStickChartWithZoomPan", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickStockScaleChart", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickStockScaleChartWithVolumeBarV1", files: [], utils: endOfDayMSFT },
@@ -217,7 +218,7 @@ const examplesToPublish = [
 	{ name: "HorizontalBarChart", files: [], utils: horizontalBarData },
 	{ name: "HorizontalStackedBarChart", files: [], utils: horizontalGroupedBarData },
 	{ name: "Kagi", files: [], utils: endOfDayMSFT },
-	{ name: "KagiWithUpdatingData", files: [ "Kagi", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "KagiWithUpdatingData", files: ["Kagi", "updatingDataWrapper"], utils: endOfDayMSFT },
 	{ name: "LineAndScatterChartGrid", files: [], utils: endOfDayMSFT },
 	{ name: "LineAndScatterChart", files: [], utils: endOfDayMSFT },
 	{ name: "MovingAverageCrossOverAlgorithmV1", files: [], utils: endOfDayMSFT },
@@ -225,9 +226,9 @@ const examplesToPublish = [
 	{ name: "OHLCChartWithElderImpulseIndicator", files: [], utils: endOfDayMSFT },
 	{ name: "OHLCChartWithElderRayIndicator", files: [], utils: endOfDayMSFT },
 	{ name: "PointAndFigure", files: [], utils: endOfDayMSFT },
-	{ name: "PointAndFigureWithUpdatingData", files: [ "PointAndFigure", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "PointAndFigureWithUpdatingData", files: ["PointAndFigure", "updatingDataWrapper"], utils: endOfDayMSFT },
 	{ name: "Renko", files: [], utils: endOfDayMSFT },
-	{ name: "RenkoWithUpdatingData", files: [ "Renko", "updatingDataWrapper" ], utils: endOfDayMSFT },
+	{ name: "RenkoWithUpdatingData", files: ["Renko", "updatingDataWrapper"], utils: endOfDayMSFT },
 	{ name: "StackedBarChart", files: [], utils: endOfDayMSFT },
 	{ name: "VolumeProfileBySessionChart", files: [], utils: endOfDayMSFT },
 	{ name: "VolumeProfileChart", files: [], utils: endOfDayMSFT },
@@ -237,7 +238,10 @@ const srcDir = path.join(base, "..", "react-stockcharts", "docs", "lib", "charts
 const template = path.join(base, "scripts", "template")
 const templatePackage = path.join(base, "scripts", "templatePackage")
 
-examplesToPublish.forEach(publish)
+examplesToPublish.forEach(async each => {
+	await remove(each);
+	await publish(each);
+})
 
 async function remove(example) {
 	const destDir = path.join(base, "examples", example.name)
@@ -245,8 +249,8 @@ async function remove(example) {
 }
 
 async function publish(example) {
-	const destDir = path.join(base, "examples", example.name)
 
+	const destDir = path.join(base, "examples", example.name)
 	await fse.ensureDir(destDir)
 	await fse.copy(template, destDir)
 
@@ -254,10 +258,10 @@ async function publish(example) {
 		path.join(templatePackage, "package.json"),
 		path.join(destDir, "package.json"),
 	)
-	await fse.copy(
+	/* await fse.copy(
 		path.join(templatePackage, "package-lock.json"),
 		path.join(destDir, "package-lock.json"),
-	)
+	) */
 
 	await fse.ensureSymlink(
 		path.join(templatePackage, "node_modules"),

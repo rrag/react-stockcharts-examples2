@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "publish": "node scripts/buildexamples.js"
+    "publish": "node scripts/buildexamples.js",
+    "updateTemplate": "cd scripts/templatePackage && rm -rf node_modules package-lock.json && npm i"
   },
   "repository": {
     "type": "git",

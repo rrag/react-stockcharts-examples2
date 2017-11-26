@@ -1,20 +1,20 @@
 {
-  "name": "react-stockcharts-example",
-  "description": "",
+  "name": "react-stockcharts-example2",
+  "description": "Examples for react-stockcharts",
   "version": "0.0.24",
   "dependencies": {
-    "d3-dsv": "1.0.5",
-    "d3-format": "^1.2.0",
-    "d3-scale": "1.0.6",
-    "d3-time-format": "2.0.5",
-    "prop-types": "15.5.10",
-    "react": "15.5.3",
-    "react-bootstrap": "0.31.3",
-    "react-dom": "15.5.3",
-    "react-stockcharts": "0.7.0-beta.18"
+    "d3-dsv": "^1.0.8",
+    "d3-format": "^1.2.1",
+    "d3-scale": "^1.0.7",
+    "d3-time-format": "^2.1.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.1.1",
+    "react-bootstrap": "^0.31.5",
+    "react-dom": "^16.1.1",
+    "react-stockcharts": "^0.7.0-beta.20"
   },
   "devDependencies": {
-    "react-scripts": "1.0.0"
+    "react-scripts": "^1.0.17"
   },
   "scripts": {
     "start": "react-scripts start",

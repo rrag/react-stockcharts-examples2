@@ -8,15 +8,16 @@
     "d3-scale": "^1.0.7",
     "d3-time-format": "^2.1.1",
     "prop-types": "^15.6.0",
-    "react": "^16.1.1",
+    "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.1.1",
-    "react-stockcharts": "^0.7.0-beta.25"
+    "react-dom": "^16.2.0",
+    "react-stockcharts": "^0.7.2"
   },
   "devDependencies": {
     "react-scripts": "^1.0.17"
   },
   "scripts": {
+    "reinstall-deps": "rm -rf node_modules package-lock.json && npm i",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

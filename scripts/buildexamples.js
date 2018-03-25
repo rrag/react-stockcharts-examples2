@@ -220,7 +220,7 @@ const examplesToPublish = [
 	{ name: "Kagi", files: [], utils: endOfDayMSFT },
 	{ name: "KagiWithUpdatingData", files: ["Kagi", "updatingDataWrapper"], utils: endOfDayMSFT },
 	{ name: "LineAndScatterChartGrid", files: [], utils: endOfDayMSFT },
-	{ name: "LineAndScatterChart", files: [], utils: endOfDayMSFT },
+	{ name: "LineAndScatterChart", files: [], utils: comparison },
 	{ name: "MovingAverageCrossOverAlgorithmV1", files: [], utils: endOfDayMSFT },
 	{ name: "MovingAverageCrossOverAlgorithmV2", files: [], utils: endOfDayMSFT },
 	{ name: "OHLCChartWithElderImpulseIndicator", files: [], utils: endOfDayMSFT },

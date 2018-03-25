@@ -11,7 +11,7 @@
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.2.0",
-    "react-stockcharts": "^0.7.2"
+    "react-stockcharts": "^0.7.3"
   },
   "devDependencies": {
     "react-scripts": "^1.0.17"

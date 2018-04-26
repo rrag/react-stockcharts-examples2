@@ -213,7 +213,7 @@ const examplesToPublish = [
 	{ name: "CandleStickStockScaleChartWithVolumeBarV1", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickStockScaleChartWithVolumeBarV2", files: [], utils: endOfDayMSFT },
 	{ name: "CandleStickStockScaleChartWithVolumeBarV3", files: [], utils: endOfDayMSFT },
-	{ name: "CandleStickChartWithInteractiveYCoordinate", files: [], utils: endOfDayMSFT },
+	{ name: "CandleStickChartWithInteractiveYCoordinate", files: ["interactiveutils"], utils: endOfDayMSFT },
 	{ name: "GroupedBarChart", files: [], utils: groupedBarData },
 	{ name: "HeikinAshi", files: [], utils: endOfDayMSFT },
 	{ name: "HorizontalBarChart", files: [], utils: horizontalBarData },

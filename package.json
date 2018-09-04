@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "publish": "node scripts/buildexamples.js",
-    "updateTemplate": "cd scripts/templatePackage && rm -rf node_modules package-lock.json && npm i",
+    "updateTemplate": "cd scripts/templatePackage && npm run reinstall-deps",
     "push": "git add -A && git commit -m 'updating examples' && git push"
   },
   "repository": {

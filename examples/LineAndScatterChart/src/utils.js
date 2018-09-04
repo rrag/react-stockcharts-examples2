@@ -19,7 +19,7 @@ function parseData(parse) {
 const parseDate = timeParse("%Y-%m-%d");
 
 export function getData() {
-	const promiseCompare = fetch("//rrag.github.io/react-stockcharts/data/comparison.tsv")
+	const promiseCompare = fetch("https://cdn.rawgit.com/rrag/react-stockcharts/master/docs/data/comparison.tsv")
 		.then(response => response.text())
 		.then(data => tsvParse(data, d => {
 			d = parseData(parseDate)(d);

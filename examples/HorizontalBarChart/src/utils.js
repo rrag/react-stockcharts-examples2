@@ -18,7 +18,7 @@ function parseData(parse) {
 
 
 export function getData() {
-	const promiseBarData = fetch("//rrag.github.io/react-stockcharts/data/barData.json")
+	const promiseBarData = fetch("https://cdn.rawgit.com/rrag/react-stockcharts/master/docs/data/barData.json")
 		.then(response => response.json())
 		.then(barData => barData.map(({ x, y }) => ({ x: y, y: x })));
 

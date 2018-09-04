@@ -6,7 +6,6 @@ import { getData } from "./utils"
 
 import { TypeChooser } from "react-stockcharts/lib/helper";
 
-
 class ChartComponent extends React.Component {
 	componentDidMount() {
 		getData().then(data => {

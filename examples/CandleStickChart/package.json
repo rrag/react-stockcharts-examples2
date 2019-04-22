@@ -3,6 +3,7 @@
   "description": "Examples for react-stockcharts",
   "version": "0.0.24",
   "dependencies": {
+    "d3": "^5.9.2",
     "d3-dsv": "^1.0.8",
     "d3-format": "^1.2.1",
     "d3-scale": "^1.0.7",

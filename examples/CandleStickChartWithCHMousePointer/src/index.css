@@ -1,0 +1,15 @@
+body { 
+    margin-left: 50px; 
+}
+p {
+    padding:10px;
+    margin-left: 3rem;
+}
+
+button {
+align-content:center;
+margin-left:100px;
+width:200px;
+background-color:aqua;
+
+}
